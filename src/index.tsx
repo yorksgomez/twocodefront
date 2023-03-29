@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { io } from 'socket.io-client';
 
 // "undefined" means the URL will be computed from the `window.location` object
-const URL ='http://20.119.8.28:3001';
+const URL ='20.119.8.28:3001';
 
 export const socket = io(URL, {
   autoConnect: false
