@@ -1,12 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import './styles/index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { io } from 'socket.io-client';
+
+// "undefined" means the URL will be computed from the `window.location` object
+const URL ='http://localhost:3001';
+
+export const socket = io(URL, {
+  autoConnect: false
+});
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
     <App />
