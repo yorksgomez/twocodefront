@@ -27,5 +27,5 @@ steps:
     azureSubscription: 'Azure for Students(8a62930b-0743-4c87-9213-5f5aaa85cd85)'
     appType: 'webAppLinux'
     WebAppName: 'twocode'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/build'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/'
     RuntimeStack: 'NODE|18-lts'
