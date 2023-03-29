@@ -21,11 +21,7 @@ steps:
     pwd
     tree
   displayName: 'npm install and build'
-- task: AzureRmWebAppDeployment@4
+- task: AzureStaticWebApp@0
   inputs:
-    ConnectionType: 'AzureRM'
-    azureSubscription: 'Azure for Students(8a62930b-0743-4c87-9213-5f5aaa85cd85)'
-    appType: 'webAppLinux'
-    WebAppName: 'twocode'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/'
-    RuntimeStack: 'NODE|18-lts'
+    app_location: '/build'
+    
