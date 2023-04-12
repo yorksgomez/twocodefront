@@ -21,10 +21,17 @@ steps:
     pwd
     tree
   displayName: 'npm install and build'
-- task: AzureStaticWebApp@0
+#- task: AzureStaticWebApp@0
+#  inputs:
+#    app_location: '/build/'
+#    skip_app_build: true
+#    skip_api_build: true
+#    azure_static_web_apps_api_token: '729ec5421507137407069d380cfdf4605f0dadaf67615ef6043da9ed94cdf0ea2-a188c103-e0c9-4186-aaf6-2f02814eea76010185158'
+- task: AzureRmWebAppDeployment@4
   inputs:
-    app_location: '/build/'
-    skip_app_build: true
-    skip_api_build: true
-    azure_static_web_apps_api_token: '729ec5421507137407069d380cfdf4605f0dadaf67615ef6043da9ed94cdf0ea2-a188c103-e0c9-4186-aaf6-2f02814eea76010185158'
-    
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Azure for Students (8a62930b-0743-4c87-9213-5f5aaa85cd85)'
+    appType: 'webAppLinux'
+    WebAppName: 'twocodefront'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/build'
+    RuntimeStack: 'PHP|8.1'
