@@ -34,4 +34,4 @@ steps:
     appType: 'webAppLinux'
     WebAppName: 'twocodefront'
     packageForLinux: '$(System.DefaultWorkingDirectory)/build'
-    RuntimeStack: 'NODE|16-lts'
+    RuntimeStack: 'PHP|8.0'
