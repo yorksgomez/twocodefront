@@ -6,7 +6,7 @@ const styles = {
     padding: 40
   } as CSSProperties,
   icon: {
-    width: '100%'
+    height: '100%'
   } as CSSProperties
 };
 

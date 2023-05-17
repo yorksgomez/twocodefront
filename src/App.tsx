@@ -2,33 +2,31 @@ import React, { CSSProperties, useEffect } from 'react';
 import { socket } from '.';
 import Editor from './components/Editor';
 import Icon from './components/Icon';
+import Computer from './components/Computer';
 import './styles/App.css';
 
 const styles = {
-  appHeader: {
-    
-  } as CSSProperties,
   main: {
     minWidth: "100vw",
     minHeight: "100vh",
     display: "flex",
+    flexDirection: "column",
     backgroundColor: "#252526"
   } as CSSProperties,
-  aside: {
-    width: '20%',
-    height: '100%',
+  appHeader: {
+    width: '100%',
+    height: '120px',
     display: 'flex',
-    flexDirection: 'column',
-
+    flexDirection: 'row',
   } as CSSProperties,
   content: {
-    minHeight: '100vh',
-    width: '80%',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: 'calc(10px + 2vmin)'
+    minHeight: 'calc(100vh - 120px)',
+    width: '100%',
+    display: 'grid',
+    gridTemplateColumns: "50% 50%",
+    gridTemplateRows: "50% 50%",
+    fontSize: 'calc(10px + 2vmin)',
+    gridAutoColumns: "50%"
   } as CSSProperties
 };
 
@@ -36,19 +34,20 @@ function App() {
 
   useEffect(() => {
     socket.connect();
+
+    return () => { socket.disconnect(); }
   });
 
   return (
-    <div>
+    <div style={styles.main}>
       <header style={styles.appHeader}>
+        <Icon></Icon>
       </header>
-      <section style={styles.main}>
-        <section  style={styles.aside}>
-          <Icon></Icon>
-        </section>
-        <section style={styles.content}>
-          <Editor></Editor>
-        </section>
+      <section style={styles.content}>
+        <Editor language="html" filename="index.html"></Editor>
+        <Editor language="css" filename="index.css"></Editor>
+        <Editor language="js" filename="index.js"></Editor>
+        <Computer></Computer>
       </section>
     </div>
   );

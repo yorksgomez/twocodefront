@@ -1,45 +1,69 @@
-import React, { CSSProperties, useEffect } from 'react';
+import React, { CSSProperties, useEffect, useRef } from 'react';
 import CodeEditor from '@uiw/react-textarea-code-editor';
 import { socket } from '..';
 
 const styles = {
   editorParent: {
-    width: "100%",
-    height: "100%"
+    overflowY: "scroll",
+    maxHeight: "calc(50vh - 60px)",
+    position: "relative"
   } as CSSProperties,
   editor: {
-    width: "100%",
-    height: "100%",
+    minHeight: "100%",
     fontSize: 12,
     backgroundColor: "#1E1E1E",
     fontFamily: 'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
+  } as CSSProperties,
+  filename: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    zIndex: 10,
+    width: 80,
+    height: 25,
+    backgroundColor: "#121212",
+    color: "#EFEFEF",
+    fontSize: 12,
+    display: "flex",
+    justifyContent: "center", 
+    alignItems: "center"
   } as CSSProperties
 };
 
-function Editor() {
+interface Props {
+  filename: string,
+  language: string
+}
 
-  const [code, setCode] = React.useState(``);
+function Editor(props : Props) {
+  const [saveWrite, setSaveWrite] = React.useState<ReturnType<typeof setTimeout>>();
+  const [code, setCode] = React.useState('');
+  const doSave = (code : string) => {
+    socket.emit('write', code);
+  };
 
   useEffect(() => {
-
     socket.on('datachange', (data) => {
       setCode(data);
     });
 
+    return () => { socket.removeAllListeners() };
   });
-
+  
   return (
     <div style={styles.editorParent}>
+      <div style={styles.filename}>{props.filename}</div>
       <CodeEditor
         value={code}
-        language="js"
+        language={props.language}
         placeholder="Enter your code"
-        onKeyDown={(event) => {
+        onKeyUp={(event) => {
           const code = event.currentTarget.value;
-          setCode(code);
-          socket.emit('write', code);
+
+          clearTimeout(saveWrite);
+          setSaveWrite(setTimeout(doSave, 1500, code));
         }}
-        padding={15}
+        padding={35}
         data-color-mode="dark"
         style={styles.editor}
       />
