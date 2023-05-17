@@ -44,9 +44,9 @@ function App() {
         <Icon></Icon>
       </header>
       <section style={styles.content}>
-        <Editor language="html" filename="index.html"></Editor>
-        <Editor language="css" filename="index.css"></Editor>
-        <Editor language="js" filename="index.js"></Editor>
+        <Editor language="html" filename="index.html" hearname="datachange1" writename='write1'></Editor>
+        <Editor language="css" filename="index.css" hearname="datachange2" writename='write2'></Editor>
+        <Editor language="js" filename="index.js" hearname="datachange3" writename='write3'></Editor>
         <Computer></Computer>
       </section>
     </div>

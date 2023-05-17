@@ -32,18 +32,20 @@ const styles = {
 
 interface Props {
   filename: string,
-  language: string
+  language: string,
+  hearname: string,
+  writename: string
 }
 
 function Editor(props : Props) {
   const [saveWrite, setSaveWrite] = React.useState<ReturnType<typeof setTimeout>>();
   const [code, setCode] = React.useState('');
   const doSave = (code : string) => {
-    socket.emit('write', code);
+    socket.emit(props.writename, code);
   };
 
   useEffect(() => {
-    socket.on('datachange', (data) => {
+    socket.on(props.hearname, (data) => {
       setCode(data);
     });
 
